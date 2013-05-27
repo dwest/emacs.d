@@ -37,12 +37,16 @@
 (setq next-line-add-newlines nil)
 (setq require-final-newline t)
 
-; Mode settings
+;; Mode settings
+
+; Major modes
 
 ; Use fundamental mode for everything, unless I say otherwise.  Stop trying to be helpful!
 (setq auto-mode-alist
       '(("\\.el" . lisp-mode)
         ("*" 'fundamental-mode)))
+
+; Minor modes
 
 ; Tab settings
 (setq-default indent-tabs-mode nil) ;; don't put tab characters in my files
@@ -64,6 +68,10 @@
 ; Theme
 ;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;(load-theme 'solarized t)
+
+; Minibuffer enhancement
+(require 'icicles)
+(icy-mode 1)
 
 ;; Key Bindings
 
