@@ -44,14 +44,17 @@
 ; Use fundamental mode for everything, unless I say otherwise.  Stop trying to be helpful!
 (setq auto-mode-alist
       '(("\\.el" . lisp-mode)
+        ("\\.js" . js2-mode)
+        ("\\.coffee" . coffee-mode)
+        ("\\.py" . python-mode)
         ("*" 'fundamental-mode)))
 
 ; Minor modes
 
 ; Tab settings
-(setq-default indent-tabs-mode nil) ;; don't put tab characters in my files
-(setq-default tab-width 4)          ;; tabs inserted by others are shown as 4 spaces long
-(setq-default c-basic-offset 4)     ;; 4 spaces to indent in c based languages
+(setq-default indent-tabs-mode nil)     ;; don't put tab characters in my files
+(setq-default tab-width 4)              ;; tabs inserted by others are shown as 4 spaces long
+(setq-default c-basic-offset 4)         ;; 4 spaces to indent in c based languages
 (setq indent-line-function 'insert-tab) ;; insert tab... oops spaces (awful... just awful)
 
 ; Disable all vc-* modes.  They are awful.
@@ -100,6 +103,11 @@
         ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
+;; Python Stuff
+(setq
+ python-shell-interpreter "ipython"
+ python-shell-interpreter-args "--profile=dev")
+
 ;; Machine-generated cruft
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -113,3 +121,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'downcase-region 'disabled nil)
