@@ -6,6 +6,14 @@
 
 ;; General Settings
 
+; Load path as understood by bash
+(let ((path (shell-command-to-string ". ~/.bashrc; echo -n $PATH")))
+  (setenv "PATH" path)
+  (setq exec-path 
+        (append
+         (split-string-and-unquote path ":")
+         exec-path)))
+
 ; Disable the splash screen and area message it's really annoying
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
@@ -46,7 +54,11 @@
       '(("\\.el" . lisp-mode)
         ("\\.js" . js2-mode)
         ("\\.coffee" . coffee-mode)
+        ("\\.html" . sgml-mode)
         ("\\.py" . python-mode)
+        ("\\.org" . org-mode)
+        ("\\.css" . css-mode)
+        ("\\.php" . php-mode)
         ("*" 'fundamental-mode)))
 
 ; Minor modes
@@ -70,7 +82,7 @@
 
 ; Theme
 ;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;(load-theme 'solarized t)
+;(load-theme 'solarized-theme t)
 
 ; Minibuffer enhancement
 (require 'icicles)
@@ -84,13 +96,15 @@
     (lambda()
      (interactive) (other-window -1)))
 
+(global-set-key (kbd "C-z") 'shell)
+
 ; show recent files
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-;; Clojure Stuff
+;; package management
 
 ; Get a copy of the latest clojure packages
 (require 'package)
@@ -103,10 +117,31 @@
         ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
+
 ;; Python Stuff
 (setq
  python-shell-interpreter "ipython"
  python-shell-interpreter-args "--profile=dev")
+
+;; clojure stuff
+
+; function argument preview
+(add-hook 'nrepl-interaction-mode-hook
+  'nrepl-turn-on-eldoc-mode)
+; hide special buffers (space toggles in buff-list)
+(setq nrepl-hide-special-buffers t)
+; tab is indent!
+(setq nrepl-tab-command 'indent-for-tab-command)
+; only show stack traces in repl
+(setq nrepl-popup-stacktraces nil)
+; only popup error buffer in repl... apparently a separate option
+(setq nrepl-popup-stacktraces-in-repl t)
+; handy if running multiple projects at once
+(setq nrepl-popup-stacktraces-in-repl t)
+; bring nrepl buffer to current window with "C-c C-z"
+(add-to-list 'same-window-buffer-names "*nrepl*")
+
+;; nodejs stuff
 
 ;; Machine-generated cruft
 (custom-set-variables

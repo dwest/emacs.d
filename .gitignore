@@ -1,2 +1,8 @@
 /backup/*
 *.elc
+/elpa/*
+tramp
+/url/*
+session.*
+/eshell/*
+/auto-save-list/*
