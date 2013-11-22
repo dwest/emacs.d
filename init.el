@@ -85,8 +85,8 @@
 ;(load-theme 'solarized-theme t)
 
 ; Minibuffer enhancement
-(require 'icicles)
-(icy-mode 1)
+;(require 'icicles)
+;(icy-mode 1)
 
 ;; Key Bindings
 
@@ -143,6 +143,10 @@
 
 ;; nodejs stuff
 
+;; auto-complete mode
+(require 'auto-complete-config)
+(ac-config-default)
+
 ;; Machine-generated cruft
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -157,3 +161,4 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'downcase-region 'disabled nil)
+
