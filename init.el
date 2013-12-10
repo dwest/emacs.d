@@ -51,14 +51,14 @@
 
 ; Use fundamental mode for everything, unless I say otherwise.  Stop trying to be helpful!
 (setq auto-mode-alist
-      '(("\\.el" . lisp-mode)
-        ("\\.js" . js2-mode)
-        ("\\.coffee" . coffee-mode)
-        ("\\.html" . sgml-mode)
-        ("\\.py" . python-mode)
-        ("\\.org" . org-mode)
-        ("\\.css" . css-mode)
-        ("\\.php" . php-mode)
+      '(("\\.el$" . lisp-mode)
+        ("\\.js$" . js2-mode)
+        ("\\.coffee$" . coffee-mode)
+        ("\\.html$" . sgml-mode)
+        ("\\.py$" . python-mode)
+        ("\\.org$" . org-mode)
+        ("\\.css$" . css-mode)
+        ("\\.php$" . php-mode)
         ("*" 'fundamental-mode)))
 
 ; Minor modes
@@ -96,7 +96,7 @@
     (lambda()
      (interactive) (other-window -1)))
 
-(global-set-key (kbd "C-z") 'shell)
+(global-set-key (kbd "C-z") 'eshell)
 
 ; show recent files
 (require 'recentf)
