@@ -6,3 +6,4 @@ tramp
 session.*
 /eshell/*
 /auto-save-list/*
+/ac-comphist.dat
