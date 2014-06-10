@@ -80,13 +80,13 @@
 ; Column numbers too
 (setq column-number-mode t)
 
-; Theme
-;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;(load-theme 'solarized-theme t)
-
 ; Minibuffer enhancement
 ;(require 'icicles)
 ;(icy-mode 1)
+
+; Theme
+;(setq custom-theme-load-path '("~/emacs.d/themes/"))
+;(load-theme sanityinc-solarized-dark t)
 
 ;; Key Bindings
 
@@ -153,7 +153,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default))))
+ '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
+ '(custom-safe-themes (quote ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

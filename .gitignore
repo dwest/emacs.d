@@ -1,9 +1,21 @@
+# Don't version control backup files...
 /backup/*
+/auto-save-list/*
+
+# Ignore byte-compiled files
 *.elc
+
+# Ignore package files
 /elpa/*
+
+# For the love of sanity don't version control tramp
 tramp
 /url/*
 session.*
 /eshell/*
-/auto-save-list/*
+
+# Auto-completion is highly machine specific (for me)
 /ac-comphist.dat
+
+# Ignore themes
+/themes/*
