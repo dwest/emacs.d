@@ -30,7 +30,7 @@
 ; Skip the default init, prevent the site install from doing "dumb things"
 (setq inhibit-default-init t)
 
-(let ((default-directory "~/.emacs.d/"))
+(let ((default-directory "~/.emacs.d/lisp"))
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
@@ -93,8 +93,18 @@
 ; Logical pair for C-x o -- C-x p means go to previous window
 (global-set-key
  (kbd "C-x p") 
-    (lambda()
-     (interactive) (other-window -1)))
+ (lambda()
+   (interactive) (other-window -1)))
+
+(global-set-key
+ (kbd "C-x C-;")
+ (lambda(beg end)
+   (interactive "r") (comment-region beg end)))
+
+(global-set-key
+ (kbd "C-x C--")
+ (lambda(beg end)
+   (interactive "r") (uncomment-region beg end)))
 
 (global-set-key (kbd "C-z") 'eshell)
 

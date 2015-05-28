@@ -19,3 +19,6 @@ session.*
 
 # Ignore themes
 /themes/*
+
+# Recently visited files list (recentf), not something to store in git
+/recentf
