@@ -7,7 +7,7 @@
 ;; General Settings
 
 ; Load path as understood by bash
-(let ((path (shell-command-to-string ". ~/.bashrc; echo -n $PATH")))
+(let ((path (shell-command-to-string ". ~/.bash_profile; echo -n $PATH")))
   (setenv "PATH" path)
   (setq exec-path 
         (append
@@ -18,6 +18,10 @@
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message "daniel")
+
+; Disable the graphical menu bar and toolbar
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 
 ; Don't assume the scratch buffer is an emacs lisp file please
 (setq initial-major-mode 'fundamental-mode)
@@ -59,6 +63,7 @@
         ("\\.org$" . org-mode)
         ("\\.css$" . css-mode)
         ("\\.php$" . php-mode)
+        ("\\.sh$" . sh-mode)
         ("*" 'fundamental-mode)))
 
 ; Minor modes
