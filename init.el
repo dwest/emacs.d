@@ -60,10 +60,12 @@
         ("\\.coffee$" . coffee-mode)
         ("\\.html$" . sgml-mode)
         ("\\.py$" . python-mode)
+        ("\\.go$" . go-mode)
         ("\\.org$" . org-mode)
         ("\\.css$" . css-mode)
         ("\\.php$" . php-mode)
         ("\\.sh$" . sh-mode)
+        ("\\.boot" . clojure-mode)
         ("*" 'fundamental-mode)))
 
 ; Minor modes
