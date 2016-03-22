@@ -64,9 +64,11 @@
         ("\\.css$" . css-mode)
         ("\\.php$" . php-mode)
         ("\\.sh$" . sh-mode)
+        ("\\.clj" . clojure-mode)
         ("*" 'fundamental-mode)))
 
-; Minor modes
+;; Minor modes
+(show-paren-mode)
 
 ; Tab settings
 (setq-default indent-tabs-mode nil)     ;; don't put tab characters in my files
