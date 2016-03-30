@@ -66,9 +66,11 @@
         ("\\.sh$" . sh-mode)
         ("\\.go$" . go-mode)
         ("^Makefile$" . makefile-mode)
+        ("\\.clj" . clojure-mode)
         ("*" 'fundamental-mode)))
 
-; Minor modes
+;; Minor modes
+(show-paren-mode)
 
 ; Tab settings
 (setq-default indent-tabs-mode nil)     ;; don't put tab characters in my files
