@@ -64,6 +64,8 @@
         ("\\.css$" . css-mode)
         ("\\.php$" . php-mode)
         ("\\.sh$" . sh-mode)
+        ("\\.go$" . go-mode)
+        ("^Makefile$" . makefile-mode)
         ("*" 'fundamental-mode)))
 
 ; Minor modes
@@ -159,8 +161,8 @@
 ;; nodejs stuff
 
 ;; auto-complete mode
-(require 'auto-complete-config)
-(ac-config-default)
+;(require 'auto-complete-config)
+;(ac-config-default)
 
 ;; Machine-generated cruft
 (custom-set-variables
