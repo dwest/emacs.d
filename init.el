@@ -66,6 +66,7 @@
         ("\\.php$" . php-mode)
         ("\\.sh$" . sh-mode)
         ("\\.boot" . clojure-mode)
+        ("\\.clj\\(c\\|s\\)?$" . clojure-mode)
         ("*" 'fundamental-mode)))
 
 ; Minor modes
