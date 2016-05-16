@@ -67,9 +67,11 @@
         ("\\.sh$" . sh-mode)
         ("\\.boot" . clojure-mode)
         ("\\.clj\\(c\\|s\\)?$" . clojure-mode)
+        ("^Makefile$" . makefile-mode)
         ("*" 'fundamental-mode)))
 
-; Minor modes
+;; Minor modes
+(show-paren-mode)
 
 ; Tab settings
 (setq-default indent-tabs-mode nil)     ;; don't put tab characters in my files
@@ -162,8 +164,8 @@
 ;; nodejs stuff
 
 ;; auto-complete mode
-(require 'auto-complete-config)
-(ac-config-default)
+;(require 'auto-complete-config)
+;(ac-config-default)
 
 ;; Machine-generated cruft
 (custom-set-variables
