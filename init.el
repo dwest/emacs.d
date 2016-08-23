@@ -67,6 +67,8 @@
         ("\\.go$" . go-mode)
         ("^Makefile$" . makefile-mode)
         ("\\.clj" . clojure-mode)
+        ("\\.pl" . perl-mode)
+        ("\\.yml" . yaml-mode)
         ("*" 'fundamental-mode)))
 
 ;; Minor modes
@@ -114,6 +116,11 @@
  (kbd "C-x C--")
  (lambda(beg end)
    (interactive "r") (uncomment-region beg end)))
+
+(global-set-key
+ (kbd "C-x _")
+ (lambda(beg end)
+   (interactive "r") (align-regexp beg end "\\(\\s-*\\)=")))
 
 (global-set-key (kbd "C-z") 'eshell)
 
