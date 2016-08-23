@@ -1,7 +1,7 @@
 ;; init.el -- emacs configuration file
 
 ;; Author: Daniel West <westwolf24@gmail.com>
-;; Version: 0x003
+;; Version: 0x004
 ;; Tags: emacs, config
 
 ;; General Settings
