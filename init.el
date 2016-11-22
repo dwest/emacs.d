@@ -4,9 +4,9 @@
 ;; Version: 0x004
 ;; Tags: emacs, config
 
-;; General Settings
+;;;; General Settings
 
-; Load path as understood by bash
+;; Load path as understood by bash
 (let ((path (shell-command-to-string ". ~/.bash_profile; echo -n $PATH")))
   (setenv "PATH" path)
   (setq exec-path 
@@ -14,46 +14,59 @@
          (split-string-and-unquote path ":")
          exec-path)))
 
-; Disable the splash screen and area message it's really annoying
+;; Disable the splash screen and area message it's really annoying
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message "daniel")
 
-; Disable the graphical menu bar and toolbar
+;; Disable the graphical menu bar and toolbar
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-; Don't assume the scratch buffer is an emacs lisp file please
+;; Don't assume the scratch buffer is an emacs lisp file please
 (setq initial-major-mode 'fundamental-mode)
 
-; Disable "id10t modes"
+;; Disable "id10t modes"
 (put 'set-goal-column 'disabled nil)
 
-; Path settings
+;; Path settings
 
-; Skip the default init, prevent the site install from doing "dumb things"
+;; Skip the default init, prevent the site install from doing "dumb things"
 (setq inhibit-default-init t)
 
 (let ((default-directory "~/.emacs.d/lisp"))
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
-; Backup files
-;     Keep backup files out of the normal file system tree!  Backup files are really annoying (except when you absolutely need them)!  Note that unlike the wiki article (http://emacswiki.org/emacs/AutoSave) suggests we do not store backup files in the system /tmp directory for security reasons...
+;;;; Backup files
+
+;; Keep backup files out of the normal file system tree!  Backup files
+;; are really annoying (except when you absolutely need them)!  Note
+;; that unlike the wiki article (http://emacswiki.org/emacs/AutoSave)
+;; suggests we do not store backup files in the system /tmp directory
+;; for security reasons...
 (setq backup-directory-alist
       `((".*" . , "~/.emacs.d/backup/")))
 (setq auto-save-file-name-transforms
       `((".*" , "~/.emacs.d/backup/")))
 
-; Don't ask about trailing eol, just put one there!
+;; Don't ask about trailing eol, just put one there!
 (setq next-line-add-newlines nil)
 (setq require-final-newline t)
 
-;; Mode settings
+;;;; Mode settings
 
-; Major modes
+;;;; Mode hooks
 
-; Use fundamental mode for everything, unless I say otherwise.  Stop trying to be helpful!
+;; non-comprehensive list of mode hooks
+(add-hook 'doc-view-mode-hook
+          (lambda ()
+            (linum-mode -1)))
+
+;;;; Major modes
+
+;; Use fundamental mode for everything, unless I say otherwise.  Stop
+;; trying to be helpful!
 (setq auto-mode-alist
       '(("\\.el$" . lisp-mode)
         ("\\.js$" . js2-mode)
@@ -71,39 +84,41 @@
         ("\\.clj" . clojure-mode)
         ("\\.pl" . perl-mode)
         ("\\.yml" . yaml-mode)
+        ;; N.B. dov-view-mode requires xpdf, gs, etc.
+        ("\\.p\\(s\\|df\\)$" . doc-view-mode)
         ("*" 'fundamental-mode)))
 
 ;; Minor modes
 (show-paren-mode)
 
-; Tab settings
+;;Tab settings
 (setq-default indent-tabs-mode nil)     ;; don't put tab characters in my files
 (setq-default tab-width 4)              ;; tabs inserted by others are shown as 4 spaces long
 (setq-default c-basic-offset 4)         ;; 4 spaces to indent in c based languages
 (setq indent-line-function 'insert-tab) ;; insert tab... oops spaces (awful... just awful)
 
-; Disable all vc-* modes.  They are awful.
+;;Disable all vc-* modes.  They are awful.
 (setq vc-handled-backends nil)
 
 ;; Display Settings
 
-; Always show line numbers, if I didn't want them I'd use less instead of emacs...
+;;Always show line numbers, if I didn't want them I'd use less instead of emacs...
 (global-linum-mode t)
 
-; Column numbers too
+;;Column numbers too
 (setq column-number-mode t)
 
-; Minibuffer enhancement
+;;Minibuffer enhancement
 ;(require 'icicles)
 ;(icy-mode 1)
 
-; Theme
+;;Theme
 ;(setq custom-theme-load-path '("~/emacs.d/themes/"))
 ;(load-theme sanityinc-solarized-dark t)
 
 ;; Key Bindings
 
-; Logical pair for C-x o -- C-x p means go to previous window
+;;Logical pair for C-x o -- C-x p means go to previous window
 (global-set-key
  (kbd "C-x p") 
  (lambda()
@@ -126,18 +141,26 @@
 
 (global-set-key (kbd "C-z") 'eshell)
 
-; show recent files
+(global-set-key
+ (kbd "C-x <f9>")
+ (lambda()
+   (interactive)
+   (let ((my-width (if (= tab-width 2) 4 2)))
+     (setq tab-width my-width)
+     (setq c-basic-offset my-width))))
+
+;;show recent files
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-;; package management
+;;;package management
 
-; Get a copy of the latest clojure packages
+;;Get a copy of the latest clojure packages
 (require 'package)
 
-; package repositories
+;;package repositories
 (mapcar (lambda (repo) 
           (add-to-list 'package-archives repo 'APPEND))
 
@@ -153,20 +176,20 @@
 
 ;; clojure stuff
 
-; function argument preview
+;;function argument preview
 (add-hook 'nrepl-interaction-mode-hook
   'nrepl-turn-on-eldoc-mode)
-; hide special buffers (space toggles in buff-list)
+;;hide special buffers (space toggles in buff-list)
 (setq nrepl-hide-special-buffers t)
-; tab is indent!
+;;tab is indent!
 (setq nrepl-tab-command 'indent-for-tab-command)
-; only show stack traces in repl
+;;only show stack traces in repl
 (setq nrepl-popup-stacktraces nil)
-; only popup error buffer in repl... apparently a separate option
+;;only popup error buffer in repl... apparently a separate option
 (setq nrepl-popup-stacktraces-in-repl t)
-; handy if running multiple projects at once
+;;handy if running multiple projects at once
 (setq nrepl-popup-stacktraces-in-repl t)
-; bring nrepl buffer to current window with "C-c C-z"
+;;bring nrepl buffer to current window with "C-c C-z"
 (add-to-list 'same-window-buffer-names "*nrepl*")
 
 ;; nodejs stuff
@@ -174,6 +197,9 @@
 ;; auto-complete mode
 ;(require 'auto-complete-config)
 ;(ac-config-default)
+
+;; company mode
+;;(add-hook 'after-init-hook 'global-company-mode) ;slows down ssh
 
 ;; Machine-generated cruft
 (custom-set-variables
