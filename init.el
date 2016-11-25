@@ -38,6 +38,9 @@
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
+;;doc view settings
+(setq doc-view-ghostscript-program "/usr/bin/gs")
+
 ; Backup files
 ;     Keep backup files out of the normal file system tree!  Backup files are really annoying (except when you absolutely need them)!  Note that unlike the wiki article (http://emacswiki.org/emacs/AutoSave) suggests we do not store backup files in the system /tmp directory for security reasons...
 (setq backup-directory-alist
