@@ -44,6 +44,9 @@
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; doc view settings
+(setq doc-view-ghostscript-program "/usr/bin/gs")
+
 ;;;; Backup files
 
 ;; Keep backup files out of the normal file system tree!  Backup files
