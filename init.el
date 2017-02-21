@@ -34,7 +34,13 @@
 ;; Skip the default init, prevent the site install from doing "dumb things"
 (setq inhibit-default-init t)
 
+;; custom lisp code
 (let ((default-directory "~/.emacs.d/lisp"))
+  (normal-top-level-add-to-load-path '("."))
+  (normal-top-level-add-subdirs-to-load-path))
+
+;; elpa lisp code
+(let ((default-directory "~/.emacs.d/elpa"))
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
@@ -69,6 +75,7 @@
 ;; trying to be helpful!
 (setq auto-mode-alist
       '(("\\.el$" . lisp-mode)
+        ("\\.c$" . c-mode)
         ("\\.js$" . js2-mode)
         ("\\.coffee$" . coffee-mode)
         ("\\.html$" . sgml-mode)
@@ -118,6 +125,14 @@
 
 ;; Key Bindings
 
+;; speedbar
+(require 'sr-speedbar)
+(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
+(setq sr-speedbar-right-side nil)
+(setq speedbar-use-images nil)
+(setq speedbar-show-unknown-files t)
+
+
 ;;Logical pair for C-x o -- C-x p means go to previous window
 (global-set-key
  (kbd "C-x p") 
@@ -137,7 +152,7 @@
 (global-set-key
  (kbd "C-x _")
  (lambda(beg end)
-   (interactive "r") (align-regexp beg end "\\(\\s-*\\)=")))
+   (interactive "r") (align-regexp beg end "\\(\\s-*\\)[\\s+-*/]?=")))
 
 (global-set-key (kbd "C-z") 'eshell)
 
