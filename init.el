@@ -86,6 +86,7 @@
         ("\\.js$" . js2-mode)
         ("\\.coffee$" . coffee-mode)
         ("\\.html$" . sgml-mode)
+        ("\\.twig$" . twig-mode)
         ("\\.py$" . python-mode)
         ("\\.go$" . go-mode)
         ("\\.org$" . org-mode)
@@ -223,6 +224,8 @@
 ;; company mode
 ;;(add-hook 'after-init-hook 'global-company-mode) ;slows down ssh
 
+(if window-system
+    (do
 ;;; Fira code
 ;; This works when using emacs --daemon + emacsclient
 (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
@@ -246,7 +249,7 @@
             ("[^*]\\(\\*/\\)"              #Xe105)
             ("\\(\\\\\\\\\\)"              #Xe106)
             ("\\(\\\\\\\\\\\\\\)"          #Xe107)
-            ("\\({-\\)"                    #Xe108)
+            ("\\({-\\)"                   #Xe108)
             ;;("\\(\\[\\]\\)"                #Xe109)
             ("\\(::\\)"                    #Xe10a)
             ("\\(:::\\)"                   #Xe10b)
@@ -355,7 +358,7 @@
 
 (add-hook 'prog-mode-hook
           #'add-fira-code-symbol-keywords)
-
+))
 ;; Machine-generated cruft
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
