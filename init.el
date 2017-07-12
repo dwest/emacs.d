@@ -225,7 +225,7 @@
 ;;(add-hook 'after-init-hook 'global-company-mode) ;slows down ssh
 
 (if window-system
-    (do
+    (progn
 ;;; Fira code
 ;; This works when using emacs --daemon + emacsclient
 (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
@@ -359,6 +359,7 @@
 (add-hook 'prog-mode-hook
           #'add-fira-code-symbol-keywords)
 ))
+
 ;; Machine-generated cruft
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
