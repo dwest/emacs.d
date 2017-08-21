@@ -100,6 +100,7 @@
         ("\\.yml" . yaml-mode)
         ;; N.B. dov-view-mode requires xpdf, gs, etc.
         ("\\.p\\(s\\|df\\)$" . doc-view-mode)
+        ("\\.tex$" . tex-mode)
         ("*" 'fundamental-mode)))
 
 ;; Minor modes
@@ -193,7 +194,7 @@
 
 ;; Python Stuff
 (setq
- python-shell-interpreter "ipython"
+ python-shell-interpreter "ipython3"
  python-shell-interpreter-args "--profile=dev")
 
 ;; clojure stuff
@@ -223,6 +224,7 @@
 ;; company mode
 ;;(add-hook 'after-init-hook 'global-company-mode) ;slows down ssh
 
+(when (display-graphic-p)
 ;;; Fira code
 ;; This works when using emacs --daemon + emacsclient
 (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")))
@@ -355,7 +357,7 @@
 
 (add-hook 'prog-mode-hook
           #'add-fira-code-symbol-keywords)
-
+)
 ;; Machine-generated cruft
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -363,7 +365,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
- '(custom-safe-themes (quote ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default))))
+ '(custom-safe-themes
+   (quote
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default)))
+ '(tex-run-command "xelatex"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
