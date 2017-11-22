@@ -101,6 +101,9 @@
         ("\\.yml" . yaml-mode)
         ;; N.B. dov-view-mode requires xpdf, gs, etc.
         ("\\.p\\(s\\|df\\)$" . doc-view-mode)
+        ("\\.tex$" . tex-mode)
+        ("CMakeLists\\.txt$" . cmake-mode)
+        ("\\.cmake$" . cmake-mode)
         ("*" 'fundamental-mode)))
 
 ;; Minor modes
@@ -363,6 +366,9 @@
 ;;           #'add-fira-code-symbol-keywords)
 ;; ))
 
+;; load modes
+(autoload 'cmake-mode "cmake-mode.el" t)
+
 ;; Machine-generated cruft
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -373,11 +379,12 @@
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default)))
  '(display-time-mode t)
  '(menu-bar-mode nil)
  '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(tex-run-command "xelatex"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
