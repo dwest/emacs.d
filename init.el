@@ -94,16 +94,21 @@
         ("\\.php$" . php-mode)
         ("\\.sh$" . sh-mode)
         ("\\.boot" . clojure-mode)
-        ("\\.clj\\(c\\|s\\)?$" . clojure-mode)
+        ("\\.clj\\(c\\|s\\|x\\)?$" . clojure-mode)
         ("^Makefile$" . makefile-mode)
         ("\\.clj" . clojure-mode)
         ("\\.pl" . perl-mode)
         ("\\.yml" . yaml-mode)
+        ("\\.sql" . sql-mode)
         ;; N.B. dov-view-mode requires xpdf, gs, etc.
         ("\\.p\\(s\\|df\\)$" . doc-view-mode)
         ("\\.tex$" . tex-mode)
         ("CMakeLists\\.txt$" . cmake-mode)
         ("\\.cmake$" . cmake-mode)
+        ("Dockerfile$" . dockerfile-mode)
+        ;; config file modes
+        ("\\.nft$" . conf-mode) ; nftables files
+        ("\\.conf$" . conf-mode)
         ("*" 'fundamental-mode)))
 
 ;; Minor modes
@@ -137,11 +142,11 @@
 ;; Key Bindings
 
 ;; speedbar
-(require 'sr-speedbar)
-(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
-(setq sr-speedbar-right-side nil)
-(setq speedbar-use-images nil)
-(setq speedbar-show-unknown-files t)
+;; (require 'sr-speedbar)
+;; (global-set-key (kbd "s-s") 'sr-speedbar-toggle)
+;; (setq sr-speedbar-right-side nil)
+;; (setq speedbar-use-images nil)
+;; (setq speedbar-show-unknown-files t)
 
 
 ;;Logical pair for C-x o -- C-x p means go to previous window
@@ -150,15 +155,21 @@
  (lambda()
    (interactive) (other-window -1)))
 
+;; Comment highlighted region with C-x C-; and uncomment region with
+;; C-u C-x C-; .  Old separate function left commented below for if I
+;; end up hating this.
 (global-set-key
  (kbd "C-x C-;")
  (lambda(beg end)
-   (interactive "r") (comment-region beg end)))
+   (interactive "r")
+   (if (and current-prefix-arg (= (car current-prefix-arg) 4))
+       (uncomment-region beg end)
+       (comment-region beg end))))
 
-(global-set-key
- (kbd "C-x C--")
- (lambda(beg end)
-   (interactive "r") (uncomment-region beg end)))
+;; (global-set-key
+;;  (kbd "C-x C--")
+;;  (lambda(beg end)
+;;    (interactive "r") (uncomment-region beg end)))
 
 (global-set-key
  (kbd "C-x _")
@@ -193,8 +204,9 @@
 (mapcar (lambda (repo) 
           (add-to-list 'package-archives repo 'APPEND))
 
-      '(("marmalade" . "http://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.milkbox.net/packages/")))
+      '(("melpa-stable" . "https://stable.melpa.org/packages/")
+	    ("marmalade" . "http://marmalade-repo.org/packages/")
+	))
 (package-initialize)
 
 
@@ -376,21 +388,22 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
+ '(custom-enabled-themes '(sanityinc-solarized-dark))
  '(custom-safe-themes
-   (quote
-    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default)))
+   '("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default))
  '(display-time-mode t)
  '(menu-bar-mode nil)
+ '(package-selected-packages
+   '(haskell-mode emmet-mode php-mode yaml-mode color-theme-sanityinc-solarized dockerfile-mode))
  '(show-paren-mode t)
- '(tool-bar-mode nil)
- '(tex-run-command "xelatex"))
+ '(tex-run-command "xelatex")
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Input Mono" :foundry "unknown" :slant normal :weight normal :height 108 :width normal)))))
+ '(default ((t (:family "IBM Plex Mono" :foundry "IBM " :slant normal :weight normal :height 181 :width normal)))))
 (put 'downcase-region 'disabled nil)
 
 (put 'upcase-region 'disabled nil)

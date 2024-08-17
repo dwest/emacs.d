@@ -25,3 +25,6 @@ session.*
 
 # Recently visited files list (recentf), not something to store in git
 /recentf
+
+# Probably shouldn't track this file
+network-security.data
