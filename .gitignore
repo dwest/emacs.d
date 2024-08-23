@@ -28,3 +28,6 @@ session.*
 
 # Probably shouldn't track this file
 network-security.data
+
+/transient
+/server

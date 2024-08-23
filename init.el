@@ -14,6 +14,20 @@
          (split-string-and-unquote path ":")
          exec-path)))
 
+;; Windows fixes if I'm forced to use it, make things work as much
+;; like Linux as possible
+(when (eq system-type 'windows-nt)
+  ;; fix right alt, don't want "gr" want C-M prefix
+  (setq w32-recognize-altgr nil)
+
+  ;; fix path
+  (let ((path (shell-command-to-string "PATH")))
+    (setenv "PATH" path)
+    (setq exec-path 
+          (append
+           (split-string-and-unquote path ";")
+           exec-path))))
+
 ;; Disable the splash screen and area message it's really annoying
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
@@ -33,7 +47,7 @@
 ;; Disable "id10t modes"
 (put 'set-goal-column 'disabled nil)
 
-;; Path settings
+;;;; Path settings for elisp
 
 ;; Skip the default init, prevent the site install from doing "dumb things"
 (setq inhibit-default-init t)
@@ -100,6 +114,7 @@
         ("\\.pl" . perl-mode)
         ("\\.yml" . yaml-mode)
         ("\\.sql" . sql-mode)
+        ("\\.adoc" . adoc-mode)
         ;; N.B. dov-view-mode requires xpdf, gs, etc.
         ("\\.p\\(s\\|df\\)$" . doc-view-mode)
         ("\\.tex$" . tex-mode)
@@ -134,10 +149,6 @@
 ;;Minibuffer enhancement
 ;(require 'icicles)
 ;(icy-mode 1)
-
-;;Theme
-;; (setq custom-theme-load-path '("~/emacs.d/themes/"))
-;; (load-theme sanityinc-solarized-dark t)
 
 ;; Key Bindings
 
@@ -209,6 +220,11 @@
 	))
 (package-initialize)
 
+
+;;Theme
+;;(setq custom-theme-load-path '("~/emacs.d/themes/"))
+;; (require 'color-theme-sanityinc-solarized)
+;; (load-theme 'sanityinc-solarized-dark t)
 
 ;; Python Stuff
 (setq
@@ -381,23 +397,44 @@
 ;; load modes
 (autoload 'cmake-mode "cmake-mode.el" t)
 
+;; write to WSL on windows systems
+(when (eq system-type 'windows-nt)
+    (defun fp/ignore-wsl-acls (orig-fun &rest args)
+      "Ignore ACLs on WSL. WSL does not provide an ACL, but emacs
+expects there to be one before saving any file. Without this
+advice, files on WSL can not be saved."
+      (if (string-match-p "^//wsl\$/" (car args))
+          (progn (message "ignoring wsl acls") "")
+        (apply orig-fun args)))
+
+    (advice-add 'file-acl :around 'fp/ignore-wsl-acls))
+
 ;; Machine-generated cruft
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#fdf6e3"))
+ '(beacon-color "#d33682")
  '(column-number-mode t)
  '(custom-enabled-themes '(sanityinc-solarized-dark))
  '(custom-safe-themes
    '("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default))
  '(display-time-mode t)
+ '(fci-rule-color "#073642")
+ '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+ '(frame-background-mode 'dark)
  '(menu-bar-mode nil)
  '(package-selected-packages
    '(haskell-mode emmet-mode php-mode yaml-mode color-theme-sanityinc-solarized dockerfile-mode))
  '(show-paren-mode t)
  '(tex-run-command "xelatex")
  '(tool-bar-mode nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
