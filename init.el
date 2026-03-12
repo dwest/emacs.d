@@ -31,7 +31,12 @@
 ;; Disable the splash screen and area message it's really annoying
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
+(setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message "daniel")
+
+;; snip the bell so it doesn't audibly ring
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
 
 ;; Disable the graphical menu bar and toolbar
 (menu-bar-mode -1)
@@ -88,7 +93,7 @@
 ;; non-comprehensive list of mode hooks
 (add-hook 'doc-view-mode-hook
           (lambda ()
-            (linum-mode -1)))
+            (display-line-numbers-mode -1)))
 
 ;;;; Major modes
 
@@ -141,7 +146,8 @@
 ;; Display Settings
 
 ;;Always show line numbers, if I didn't want them I'd use less instead of emacs...
-(global-linum-mode t)
+;; (global-linum-mode t)
+(global-display-line-numbers-mode)
 
 ;;Column numbers too
 (setq column-number-mode t)
@@ -200,6 +206,10 @@
 ;; refresh syntax highlighting
 (global-set-key (kbd "C-c r") 'font-lock-fontify-buffer)
 
+;; dictionary definition of word under point
+(global-set-key
+ (kbd "M-#") 'dictionary-lookup-definition)
+
 ;; show recent files
 (require 'recentf)
 (recentf-mode 1)
@@ -212,11 +222,13 @@
 (require 'package)
 
 ;;package repositories
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (mapcar (lambda (repo) 
           (add-to-list 'package-archives repo 'APPEND))
 
       '(("melpa-stable" . "https://stable.melpa.org/packages/")
-	    ("marmalade" . "http://marmalade-repo.org/packages/")
+	    ("marmalade" . "https://marmalade-repo.org/packages/")
 	))
 (package-initialize)
 
@@ -418,22 +430,31 @@ advice, files on WSL can not be saved."
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
-   (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#fdf6e3"))
+   (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682"
+           "#2aa198" "#fdf6e3"))
  '(beacon-color "#d33682")
  '(column-number-mode t)
  '(custom-enabled-themes '(sanityinc-solarized-dark))
  '(custom-safe-themes
-   '("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d" "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97" default))
+   '("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328"
+     "12c51dc1e3c1cd5d6c4df302e1d0e07126b22e44c777f5a60189073697fa5b1d"
+     "4cd7eda69f59b3cc97c8a561ac809d82ce6e39b8d0b78aaad8eb6ab58a546d97"
+     default))
  '(display-time-mode t)
  '(fci-rule-color "#073642")
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
  '(frame-background-mode 'dark)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(haskell-mode emmet-mode php-mode yaml-mode color-theme-sanityinc-solarized dockerfile-mode))
+   '(color-theme-sanityinc-solarized dap-mode dockerfile-mode emmet-mode
+                                     f haskell-mode lsp-mode
+                                     lsp-treemacs markdown-mode
+                                     pfuture php-mode posframe s
+                                     treemacs yaml-mode))
  '(show-paren-mode t)
  '(tex-run-command "xelatex")
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(warning-suppress-types '((comp))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

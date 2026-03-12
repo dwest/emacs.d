@@ -4,6 +4,7 @@
 
 # Ignore byte-compiled files
 *.elc
+/eln-cache
 
 # Ignore package files
 /elpa/*
